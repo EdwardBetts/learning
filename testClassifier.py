@@ -6,15 +6,13 @@ linearly separate random points on the plane [-1,1]X[-1,1]
 @author: debajyoti
 '''
 
-#from __future__ import division
- 
 import numpy as np
 import matplotlib.pyplot as plt
  
 #run with more numPoints and less numEpochs for better visualiation 
 numPoints = 10
-numEpochs = 10
-showN = 5
+numEpochs = 100
+showN = 20 #used to plot every Nth-epoch
 averageIteration = 0
 
 #turn on interactive mode 
@@ -58,9 +56,11 @@ while epoch < numEpochs :
  
     for p in points:
         if classifyPoint(p) == 1:
-            plt.plot( p[1], p[2], 'bo' )
+			if(epoch % showN == 0):
+				plt.plot( p[1], p[2], 'bo' )
         else:
-            plt.plot( p[1], p[2], 'go' )
+			if(epoch % showN == 0):
+				plt.plot( p[1], p[2], 'go' )
  
     plt.draw()
  
@@ -72,12 +72,12 @@ while epoch < numEpochs :
     done = False
     while not done:
         iteration += 1
-        wrongPoints = 0
+        wrongPoints = 0 #can be used to find averageError
         print ("Weights :" +str(w))
         #check classification of points, update weights for the first one found to be wrong
         for p in points:
             if np.sign( np.dot(w, p) ) != classifyPoint( p ):
-                w = np.add( w, classifyPoint( p ) * p )  
+                w = np.add( w, classifyPoint( p ) * p )  #assuming learning rate = 1
                 wrongPoints += 1
                 break
         if wrongPoints == 0:
