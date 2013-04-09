@@ -1,0 +1,29 @@
+body {background-image:url('paper.png');}
+body {color:white;}
+
+#seed 
+{
+ text-align : left;
+ color : pink; 
+ margin-left:35%;
+ float:left;
+}
+
+#depth 
+{
+ text-align : left;
+ color : pink; 
+ margin-right:35%; 
+ float:right;
+}
+
+
+#content
+{ 
+ text-align : center;
+ margin-right:40%;
+ margin-left:40%;
+ margin-top:10%;
+ 
+}
+ 

@@ -1,0 +1,29 @@
+body {background-image:url('paper.png');}
+body {color:white;}
+
+#heading 
+{
+ text-align : center;
+ margin-right :30%;
+ margin-left :30%;
+}
+#box
+{
+ text-align : center;
+ color : white;
+ margin-right: 30%;
+ margin-left:30%;
+ margin-top:5%;
+ float:center;
+}
+
+
+#content
+{ 
+ text-align : center;
+ margin-right:40%;
+ margin-left:40%;
+ margin-top:7%;
+ color : yellow;
+ 
+}
