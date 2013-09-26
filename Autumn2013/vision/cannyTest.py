@@ -9,7 +9,7 @@ cv.ShowImage("original",image)
 
 image3 = cv.LoadImage(location+imgName,0)
 cv.NamedWindow("gray",cv.CV_WINDOW_AUTOSIZE)
-cv.CvtColor(image,image3,cv.CV_BGR2GRAY)
+#cv.CvtColor(image,image3,cv.CV_BGR2GRAY)
 cv.ShowImage("gray",image3)
 
 image2 = cv.CreateImage(cv.GetSize(image),cv.IPL_DEPTH_8U,3)
