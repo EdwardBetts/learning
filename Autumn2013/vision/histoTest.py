@@ -1,16 +1,23 @@
-import cv
+import cv2
 import numpy as np
 
-location = "D:\\Dropbox\\vision\\soniaImages\\"
-imgName = "a.png"
-
-image = cv.LoadImage(location+imgName)
-cv.NamedWindow("original",cv.CV_WINDOW_AUTOSIZE)
-cv.ShowImage("original",image)
-
-histo = np.zeros(cv.GetSize(image))
-
+img = cv2.imread('building.jpg')
+h = np.zeros((300,256,3))
+b,g,r, = cv2.split(img)
 bins = np.arange(256).reshape(256,1)
 color = [(255,0,0),(0,255,0),(0,0,255)]
-for ch,color in enumerate(color):
-    hist_item = 
+
+cv2.imshow('original',img)
+cv2.waitKey(0)
+
+for item, col in zip([b,g,r,],color):
+	hist_item = cv2.calcHist([item],[0],None,[256],[0,255])
+	cv2.normalize(hist_item,hist_item,0,255,cv2.NORM_MINMAX)
+	hist=np.int32(np.around(hist_item))
+	pts = np.column_stack((bins,hist))
+	cv2.polylines(h,[pts],False,col)
+    
+h=np.flipud(h)
+
+cv2.imshow('colorhist',h)
+cv2.waitKey(0)
