@@ -68,7 +68,7 @@ def lcdm(filename):
     plt.plot(x,y,'g--')
     
     #save output
-    plt.savefig("D:/learning/gsoc/outFinal.png")
+    plt.savefig("outFinal.png")
     
 if __name__ == '__main__':
     if(len(sys.argv)!=2):
