@@ -75,10 +75,10 @@ int sClassify()
 {
     //TODO Classify difficulty of sudoku
     int c;
-    if(blanks > 30) c = 1;
-    else    if(blanks >25) c = 2;
-            else    if(blanks>21)   c=3;
-                    else    c = 4;          //Re-calibrate limits
+    if(blanks > 68) c = 4;
+    else    if(blanks > 65) c = 3;
+            else    if(blanks > 61)   c=2;
+                    else    c = 1;          //Re-calibrate limits
     switch(c)
     {
         case 1: return 1; break;    //easy
