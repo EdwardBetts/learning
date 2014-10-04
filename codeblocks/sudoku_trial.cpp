@@ -4,10 +4,12 @@
 using namespace std;
 
 #define NX 9
-#define NY NX //square dimensions
+#define NY NX   //square dimensions
 
-int grid[NX][NY]; //structure to store sudoku
-int blanks;
+//TODO wrap the global vars in a struct
+int grid[NX][NY];   //structure to store sudoku
+int blanks;         //to classify difficulty
+int posiions[NX*NY];   // to store position of blanks
 
 int sRead(char fName[100])
 {
@@ -32,7 +34,8 @@ int sRead(char fName[100])
                 int k = temp-'0';
                 if(k<1||k>9)
                 {
-                    k = 0; //write 0(zero) in empty space
+                    k = 0;  //write 0(zero) in empty space
+                    posiions[blanks] = NX*i + j;    //row-wise traversal of the grid
                     blanks++;
                 }
                 grid[i][j] = k;
@@ -75,22 +78,28 @@ int sClassify()
 {
     //TODO Classify difficulty of sudoku
     int c;
+    cout<<"\nBlanks :"<<blanks<<endl;
+    if(blanks<0 || (blanks>(NX*NY)))
+        return 0;
     if(blanks > 68) c = 4;
     else    if(blanks > 65) c = 3;
             else    if(blanks > 61)   c=2;
                     else    c = 1;          //Re-calibrate limits
-    switch(c)
+    return c;
+    //TODO use switch for strings
+    /*switch(c)
     {
-        case 1: return 1; break;    //easy
-        case 2: return 2; break;    //medium
-        case 3: return 3; break;    //hard
-        case 4: return 4;           //samurai
-    }
+        case 1: cout<<c;    return 1; break;    //easy
+        case 2: cout<<c;    return 2; break;    //medium
+        case 3: cout<<c;    return 3; break;    //hard
+        case 4: cout<<c;    return 4;           //samurai
+    }*/
 }
 
 int sSolve()
 {
     //TODO Solve sudoku
+    cout<<posiions;
 
 }
 
@@ -103,7 +112,13 @@ int main()
     if(t!=1)
         return 0;
     sDisp();
-    int lvl = sClassify(); // to be called before solving
+    int lvl = 0;
+    lvl = sClassify(); // to be called before solving
+    if(lvl < 1 || lvl > 4)
+    {
+        cout<<"Error in difficulty level";
+        return 0;   //use error codes for easier debug
+    }
     cout<<"\nDifficulty Level :"<<lvl;
     sSolve();
 
