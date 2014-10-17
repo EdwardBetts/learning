@@ -4,12 +4,12 @@
 using namespace std;
 
 #define NX 9
-#define NY NX   //square dimensions
+#define NY NX   //square dimensions, maybe use constants if not specified otherwise
 
 //TODO wrap the global vars in a struct
 int grid[NX][NY];   //structure to store sudoku
 int blanks;         //to classify difficulty
-int posiions[NX*NY];   // to store position of blanks
+int positions[NX*NY];   // to store position of blanks
 
 int sRead(char fName[100])
 {
@@ -35,7 +35,7 @@ int sRead(char fName[100])
                 if(k<1||k>9)
                 {
                     k = 0;  //write 0(zero) in empty space
-                    posiions[blanks] = NX*i + j;    //row-wise traversal of the grid
+                    positions[blanks] = NX*i + j;    //row-wise traversal of the grid
                     blanks++;
                 }
                 grid[i][j] = k;
@@ -96,10 +96,95 @@ int sClassify()
     }*/
 }
 
+int nCheck(int pos, int n) //for 9X9 only
+{
+    //check if valid number, i.e., check row, column and grid
+    int col = pos % NX; //modulus for column
+    int row = pos / NX; //division for row
+    int grid = 0;
+    switch(row)
+    {
+        case 1:
+        case 2:
+        case 3: switch(col)
+        {
+            case 1:
+            case 2:
+            case 3: grid = 1; break;
+
+            case 4:
+            case 5:
+            case 6: grid = 2; break;
+
+            case 7:
+            case 8:
+            case 9: grid = 3; break;
+        } ; break;
+
+        case 4:
+        case 5:
+        case 6: switch(column)
+        {
+            case 1:
+            case 2:
+            case 3: grid = 4; break;
+
+            case 4:
+            case 5:
+            case 6: grid = 5; break;
+
+            case 7:
+            case 8:
+            case 9: grid = 6; break;
+        } ; break;
+
+        case 7:
+        case 8:
+        case 9: switch(column)
+        {
+            case 1:
+            case 2:
+            case 3: grid = 7; break;
+
+            case 4:
+            case 5:
+            case 6: grid = 8; break;
+
+            case 7:
+            case 8:
+            case 9: grid = 9; break;
+        } ; break;
+
+        case default: grid = -1; //ERROR
+    };
+
+
+}
+
 int sSolve()
 {
     //TODO Solve sudoku
-    cout<<posiions;
+    cout<<positions;
+    int uNum = 0;
+    while(uNum<blanks)
+    {
+        int k = positions[uNum];
+        int nFill =  sGrid[k]; //positions[uNum];
+        sGrid[k] = nFill+1;
+        int res = nCheck(k,sGrid[k]);
+        if(res == 1)
+        {
+            uNum++; //proceed to next blank position
+        }
+        else
+        {
+            if(sGrid[positions] == 9)
+            {
+                //fall back to last number
+                uNum--;
+            }
+        }
+    }
 
 }
 
